@@ -15,10 +15,10 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
     router.push(`${window.location.pathname}?${params}`);
   };
   return (
-    <div className="flex justify-center items-center text-gray-500">
+    <div className="flex justify-between mt-2 items-center text-gray-300">
       <button
         disabled={!hasPrev}
-        className="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="py-2 px-4 rounded-md bg-slate-600 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
         onClick={() => {
           changePage(page - 1);
         }}
@@ -34,7 +34,7 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
               <button
                 key={pageIndex}
                 className={`px-2 rounded-sm ${
-                  page === pageIndex ? "bg-slate-400" : ""
+                  page === pageIndex ? "bg-slate-600" : ""
                 }`}
                 onClick={() => {
                   changePage(pageIndex);
@@ -47,7 +47,7 @@ const Pagination = ({ page, count }: { page: number; count: number }) => {
         )}
       </div>
       <button
-        className="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+        className="py-2 px-4 rounded-md bg-slate-600 text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
         disabled={!hasNext}
         onClick={() => {
           changePage(page + 1);
