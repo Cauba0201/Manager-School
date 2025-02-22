@@ -90,9 +90,25 @@ const TeacherListPage = async ({
   );
 
   //Change Page with Data
-  const { page } = searchParams;
+  const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
   const query: Prisma.TeacherWhereInput = {};
+
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value !== undefined) {
+        switch (key) {
+          case "classId":
+            query.lessons = { some: { classId: parseInt(value) } };
+            break;
+          case "search":
+            query.name = { contains: value, mode: "insensitive" };
+          default:
+            break;
+        }
+      }
+    }
+  }
   //call data
   const [data, count] = await prisma.$transaction([
     prisma.teacher.findMany({
