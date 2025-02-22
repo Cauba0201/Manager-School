@@ -7,6 +7,7 @@ import { Class, Prisma, Subject, Teacher } from "@prisma/client";
 import { ITEM_PRE_PAGE } from "@/lib/setting";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+// import FormContainer from "@/components/FormContainer";
 // import { auth } from "@clerk/nextjs/server";
 
 type TeacherList = Teacher & { subjects: Subject } & { classes: Class[] };
@@ -48,6 +49,10 @@ const TeacherListPage = async ({
       accessor: "address",
       className: "hidden lg:table-cell",
     },
+    {
+      header: "Actions",
+      accessor: "action",
+    },
   ];
 
   const renderRow = (item: TeacherList) => (
@@ -70,7 +75,7 @@ const TeacherListPage = async ({
       </div>
       <td className="hidden md:table-cell">{item.username}</td>
       <td className="hidden md:table-cell">
-        {item.subjects.map((subject) => subject.name).join(",")}
+        {item.subjects.map((subject: { name: unknown; }) => subject.name).join(",")}
       </td>
       <td className="hidden md:table-cell">
         {item.classes.map((classItem) => classItem.name).join(",")}
@@ -78,21 +83,41 @@ const TeacherListPage = async ({
       <td className="hidden md:table-cell">{item.phone}</td>
       <td className="hidden md:table-cell">{item.address}</td>
       <td>
-        <div>
+        <div className="flex items-center gap-2">
           <Link href={`/list/teachers/${item.id}`}>
             <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
               <Image src="/view.png" alt="" width={16} height={16} />
             </button>
           </Link>
+          <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
+            <Image src="/delete.png" alt="" width={16} height={16} />
+          </button>
+          {/* <FormContainer table="teacher" type="delete" id={item.id} /> */}
         </div>
       </td>
     </tr>
   );
 
   //Change Page with Data
-  const { page } = searchParams;
+  const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
   const query: Prisma.TeacherWhereInput = {};
+
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value !== undefined) {
+        switch (key) {
+          case "classId":
+            query.lessons = { some: { classId: parseInt(value) } };
+            break;
+          case "search":
+            query.name = { contains: value, mode: "insensitive" };
+          default:
+            break;
+        }
+      }
+    }
+  }
   //call data
   const [data, count] = await prisma.$transaction([
     prisma.teacher.findMany({
@@ -121,6 +146,8 @@ const TeacherListPage = async ({
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-400">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
+            {/* <FormContainer table="teacher" type="create" /> */}
+
           </div>
         </div>
       </div>
