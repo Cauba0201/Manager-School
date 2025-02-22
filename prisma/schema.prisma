@@ -31,7 +31,7 @@ model Student {
   gradeId     Int
   grade       Grade        @relation(fields: [gradeId], references: [id])
   attemdances Attemdance[]
-  result      Result[]
+  result      Result[] //
   birthday    DateTime
 }
 
@@ -44,7 +44,7 @@ model Parent {
   phone    String?   @unique
   address  String
   createAt DateTime  @default(now())
-  Student  Student[]
+  Student  Student[] //
 }
 
 model Teacher {
