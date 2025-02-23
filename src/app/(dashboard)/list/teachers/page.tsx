@@ -75,7 +75,9 @@ const TeacherListPage = async ({
       </div>
       <td className="hidden md:table-cell">{item.username}</td>
       <td className="hidden md:table-cell">
-        {item.subjects.map((subject: { name: unknown; }) => subject.name).join(",")}
+        {item.subjects
+          .map((subject: { name: unknown }) => subject.name)
+          .join(",")}
       </td>
       <td className="hidden md:table-cell">
         {item.classes.map((classItem) => classItem.name).join(",")}
@@ -147,7 +149,6 @@ const TeacherListPage = async ({
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {/* <FormContainer table="teacher" type="create" /> */}
-
           </div>
         </div>
       </div>
