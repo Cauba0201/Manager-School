@@ -1,3 +1,4 @@
+import AttendanceChartContainer from "@/components/forms/AttendanceChartContainer";
 import CountChartContainer from "@/components/forms/CountChartContainer";
 import EventCalendarContainer from "@/components/forms/EventCalendarContainer";
 import FinanceChart from "@/components/forms/FinanceChart";
@@ -25,7 +26,9 @@ const AdminPage = ({
           <div className="w-full lg:w-1/3 h-[450px]">
             <CountChartContainer />
           </div>
-          <div className="w-full lg:w-2/3 h-[450px]"></div>
+          <div className="w-full lg:w-2/3 h-[450px]">
+            <AttendanceChartContainer />
+          </div>
         </div>
         {/* BOTTOM CHART */}
         <div className="w-full h-[500px]">
