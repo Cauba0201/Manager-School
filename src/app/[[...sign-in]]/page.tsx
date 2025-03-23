@@ -1,23 +1,29 @@
 "use client";
 
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import * as SignIn from "@clerk/elements/sign-in";
 import * as Clerk from "@clerk/elements/common";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  const { user } = useUser();
+  // const { user } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    const role = user?.publicMetadata.role;
+  // useEffect(() => {
+  //   const role = user?.publicMetadata.role;
 
-    if (role) {
-      router.push(`/${role}`);
-    }
-  }, [user, router]);
+  //   if (role) {
+  //     // router.push(`/${role}`);
+  //     router.push(`/`);
+
+  //   }
+  // }, [user, router]);
+
+  const GotoHome = () => {
+    router.push("/list/students");
+  };
 
   return (
     <div className="h-screen flex items-center justify-center bg-white">
@@ -38,7 +44,7 @@ const LoginPage = () => {
             </Clerk.Label>
             <Clerk.Input
               type="text"
-              required
+              // required
               className="p-2 rounded-md ring-1 ring-gray-300"
             />
             <Clerk.FieldError className="text-xs text-red-400" />
@@ -50,13 +56,14 @@ const LoginPage = () => {
             </Clerk.Label>
             <Clerk.Input
               type="text"
-              required
+              // required
               className="p-2 rounded-md ring-1 ring-gray-300"
             />
             <Clerk.FieldError className="text-xs text-red-400" />
           </Clerk.Field>
           <SignIn.Action
             submit
+            onClick={GotoHome}
             className="bg-blue-500 text-white my-1 rounded-md text-sm p-[10px]"
           >
             Sign In
