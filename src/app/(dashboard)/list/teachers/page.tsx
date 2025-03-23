@@ -10,12 +10,12 @@ import Link from "next/link";
 // import FormContainer from "@/components/FormContainer";
 // import { auth } from "@clerk/nextjs/server";
 
-type TeacherList = Teacher & { subjects: Subject } & { classes: Class[] };
+type TeacherList = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
 const TeacherListPage = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string };
+  searchParams: { [key: string]: string | undefined };
 }) => {
   // const { sessionClaims } = auth();
   // const role = (sessionClaims?.metadata as { role?: string })?.role;
@@ -75,9 +75,7 @@ const TeacherListPage = async ({
       </div>
       <td className="hidden md:table-cell">{item.username}</td>
       <td className="hidden md:table-cell">
-        {item.subjects
-          .map((subject: { name: string; }) => subject.name)
-          .join(",")}
+        {item.subjects.map((subject) => subject.name).join(",")}
       </td>
       <td className="hidden md:table-cell">
         {item.classes.map((classItem) => classItem.name).join(",")}
