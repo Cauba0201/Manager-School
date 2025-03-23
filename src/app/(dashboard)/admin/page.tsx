@@ -1,3 +1,4 @@
+import CountChartContainer from "@/components/forms/CountChartContainer";
 import EventCalendarContainer from "@/components/forms/EventCalendarContainer";
 import FinanceChart from "@/components/forms/FinanceChart";
 import UserCard from "@/components/forms/UserCard";
@@ -21,7 +22,9 @@ const AdminPage = ({
         </div>
         {/* MIDDEL CHART */}
         <div className="flex gap-4 flex-col lg:flex-row">
-          <div className="w-full lg:w-1/3 h-[450px]"></div>
+          <div className="w-full lg:w-1/3 h-[450px]">
+            <CountChartContainer />
+          </div>
           <div className="w-full lg:w-2/3 h-[450px]"></div>
         </div>
         {/* BOTTOM CHART */}
